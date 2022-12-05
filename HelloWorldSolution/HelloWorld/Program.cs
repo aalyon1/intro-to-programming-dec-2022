@@ -1,18 +1,21 @@
 ﻿using HelloWorld;
 
-Console.WriteLine("Take a break!");
+var builder = WebApplication.CreateBuilder(args);
 
-Console.Write("How many mins? :");
-string? minutes = Console.ReadLine();
+builder.Services.AddSingleton<DateUtils>();
+var app = builder.Build();
 
-if (minutes is not null)
+//Route Parameter
+app.MapGet("/break/{minutes:int}", (int minutes, DateUtils utils) =>
 {
-    DateUtils utils = new DateUtils();
-    int mins = int.Parse(minutes);
-    DateTime timeAtEndOfBreak = utils.TakeABreak(mins);
-    Console.WriteLine($"Okay, be back at {timeAtEndOfBreak:T}");
-}
-else
-{
-    Console.WriteLine("Enter some mins");
-}
+    var response = new BreakTimerResponse(
+        minutes,
+        DateTime.Now,
+        utils.TakeABreak(minutes)
+        ) ;
+    return Results.Ok(response);
+});
+
+app.Run();
+
+public record BreakTimerResponse(int Minutes, DateTime StartTime, DateTime EndTime);
