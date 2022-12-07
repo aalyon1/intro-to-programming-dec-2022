@@ -2,14 +2,9 @@
 public class BankAccount
 {
     private decimal _balance = 5000;
-    public void Deposit(int amountToDeposit)
+    public virtual void Deposit(int amountToDeposit)
     {
         _balance += amountToDeposit;
-    }
-
-    public void Deposit(decimal amountToDeposit)
-    {
-        throw new NotImplementedException();
     }
 
     public decimal GetBalance()
