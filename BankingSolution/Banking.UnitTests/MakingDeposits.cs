@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Banking.UnitTests.TestDoubles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ public class MakingDeposits
     public void MakingDepositsIncreasesBalance()
     {
         //Given
-        var account = new BankAccount();
+        var account = new BankAccount(new DummyBonusCalculator());
         var openingBalance = account.GetBalance();
         var amountToDeposit = 100;
 

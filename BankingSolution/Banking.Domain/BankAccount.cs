@@ -2,14 +2,18 @@
 public class BankAccount
 {
     private decimal _balance = 5000;
-    public void Deposit(int amountToDeposit)
+    private readonly ICalculateBonses _calculator;
+
+    public BankAccount(ICalculateBonses calculator)
     {
-        _balance += amountToDeposit;
+        _calculator = calculator;
     }
 
-    public void Deposit(decimal amountToDeposit)
+    public void Deposit(int amountToDeposit)
     {
-        throw new NotImplementedException();
+        // decimal bonus = _balance >= 5000M ? amountToDeposit * .10M : 0;
+        decimal bonus = _calculator.GetBonusForDepositOn(_balance, amountToDeposit);
+        _balance += amountToDeposit;
     }
 
     public decimal GetBalance()
@@ -20,5 +24,10 @@ public class BankAccount
     public void Withdraw(int amountToWithdrawal)
     {
         _balance -= amountToWithdrawal;
+    }
+
+    public void Deposit(decimal amountToDeposit)
+    {
+
     }
 }
