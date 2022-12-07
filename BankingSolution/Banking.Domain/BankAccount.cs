@@ -7,6 +7,11 @@ public class BankAccount
         _balance += amountToDeposit;
     }
 
+    public void Deposit(decimal amountToDeposit)
+    {
+        throw new NotImplementedException();
+    }
+
     public decimal GetBalance()
     {
         return _balance;
